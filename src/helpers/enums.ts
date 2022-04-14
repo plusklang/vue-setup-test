@@ -1,0 +1,5 @@
+export enum Availabilty {
+    AVAILABLE = 'AVAILABLE',
+    UNAVAILABLE = 'UNAVAILABLE',
+    PARTLY_AVAILABLE = 'PARTLY_AVAILABLE'
+}
