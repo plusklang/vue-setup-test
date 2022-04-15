@@ -12,13 +12,13 @@
 
 body {
     margin: 0;
+    font-size: 16px;
 }
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
 }
 
 button {
@@ -33,6 +33,45 @@ button {
     &:hover {
         cursor: pointer;
         background: #294bff;
+    }
+}
+.input {
+    position: relative;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    max-width: 640px;
+
+    label {
+        display: block;
+        text-transform: capitalize;
+        margin-bottom: 3px;
+    }
+
+    &.has--error {
+        input {
+            border-color: #B40000;
+            color: #B40000;
+        }
+    }
+
+    input {
+        border-width: 1px;
+        border-color: #333;
+        height: 40px;
+        width: calc(100% - 16px);
+        border-radius: 8px;
+        box-shadow: none;
+        appearance: none;
+        outline: none;
+        padding: 0 8px;
+    }
+
+    &__error {
+        position: absolute;
+        bottom: 0;
+        line-height: 1;
+        left: 0;
+        color: #B40000;
     }
 }
 
@@ -54,5 +93,39 @@ button {
       color: #000;
     }
   }
+}
+
+.autocomplete {
+
+    &__dropdown {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity .3s ease, visibility 0s ease .3s;
+        position: absolute;
+        top: calc(100% - 20px);
+        width: 100%;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        background: #fff;
+
+        &.is--active {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity .3s ease, visibility 0s ease 0s;
+
+        }
+
+        li {
+            line-height: 1;
+            padding: 12px 15px;
+            cursor: pointer;
+
+            &:hover {
+                background: #cccccc;
+            }
+        }
+    }
 }
 </style>

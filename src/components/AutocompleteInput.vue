@@ -2,7 +2,6 @@
     <div class="input" :class="{'has--error': !isValid}">
         <label :for="props.id"> {{ name }}</label>
         <input type="text"
-               autocomplete="off"
                :id="props.id"
                @input="validate"
                @blur="validate"
@@ -56,4 +55,7 @@ function validate(e: KeyboardEvent) {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+
+
+</style>

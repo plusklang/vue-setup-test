@@ -22,6 +22,7 @@
             v-model:model-value="props.modelValue.positions"
             id="positions"
             name="positions"
+            v-autocomplete="positionsList()"
             pattern=".*"
             error-text-pattern=""
             error-text-required="Please type your positions"
@@ -38,6 +39,7 @@
 import Input from "@/components/Input.vue";
 import {defineExpose, ref, onMounted} from "vue";
 import {ProfileFormValuesType} from "@/helpers/types";
+import {positions} from "@/helpers/mappings";
 import Radio from "@/components/Radio.vue";
 import {availabilityMapping} from "@/helpers/mappings";
 import {Availabilty} from "@/helpers/enums";
@@ -71,6 +73,10 @@ function availabilityOptions(): Record<Availabilty, string> {
     return availabilityMapping
 }
 
+function positionsList(): string[] {
+    return positions
+}
+
 
 </script>
 
@@ -81,24 +87,6 @@ function availabilityOptions(): Record<Availabilty, string> {
     &__save {
         margin-top: 20px;
     }
-}
-
-h3 {
-    margin: 40px 0 0;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    display: inline-block;
-    margin: 0 10px;
-}
-
-a {
-    color: #42b983;
 }
 
 </style>
