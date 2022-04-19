@@ -4,7 +4,7 @@
         <div class="profile__image"></div>
         <div>Name: {{ profileStore.name }}</div>
         <div>Age: {{ profileStore.age }}</div>
-        <div>Positions: {{ profileStore.positions }}</div>
+        <div>Positions: {{ getPositionsString() }}</div>
         <div>Availability: {{ availabilty }}</div>
         <button class="profile__btn-edit" @click.prevent="$router.push('Edit')">Edit profile</button>
     </div>
@@ -23,6 +23,10 @@ const profileStore = useProfileStore()
 const availabilty = computed((): string => {
     return availabilityMapping[profileStore.availability]
 })
+
+function getPositionsString(): string {
+    return profileStore.positions.join(', ')
+}
 
 </script>
 

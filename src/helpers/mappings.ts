@@ -8,6 +8,13 @@ export const availabilityMapping: Record<Availabilty, string> = {
 
 export const positions: string[] = [
     'Frontend Developer',
+    'C++ Developer',
+    'Security Developer',
+    'Web Analyst',
+    'Technical Consultant',
+    'Wordpress Developer',
+    'Shopify Developer',
+    'Shopware Developer',
     'Backend Developer',
     'UI/UX Developer',
     'UI/UX Designer',

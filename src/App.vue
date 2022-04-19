@@ -21,7 +21,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-button {
+button, .btn {
     height: 40px;
     border: none;
     background: #4262ff;
@@ -35,11 +35,28 @@ button {
         background: #294bff;
     }
 }
+
+.btn--secondary {
+    background-color: #fff;
+    transition: background-color .2s ease;
+    border: 1px solid #4262ff;
+    color: #4262ff;
+
+    &:hover {
+        color: #fff;
+        background: #4262ff;
+    }
+}
+
 .input {
     position: relative;
     margin-bottom: 10px;
     padding-bottom: 20px;
     max-width: 640px;
+
+    &.no-margin {
+        margin-bottom: 0;
+    }
 
     label {
         display: block;
@@ -55,14 +72,17 @@ button {
     }
 
     input {
-        border-width: 1px;
-        border-color: #333;
-        height: 40px;
-        width: calc(100% - 16px);
-        border-radius: 8px;
+        background-image:none;
+        background-color:transparent;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
         box-shadow: none;
         appearance: none;
         outline: none;
+        border: 1px solid #999;
+        height: 40px;
+        width: calc(100% - 16px);
+        border-radius: 8px;
         padding: 0 8px;
     }
 

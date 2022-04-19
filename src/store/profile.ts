@@ -1,15 +1,14 @@
 import {defineStore} from 'pinia'
 import {Availabilty} from "@/helpers/enums";
 import {ProfileValuesType} from "@/helpers/types";
+import {getRandomId} from "@/helpers/utilityFunctions"
 
-// useStore could be anything like useUser, useCart
-// the first argument is a unique id of the store across your application
 export const useProfileStore = defineStore('profile', {
     state: () =>
         ({
             name: '',
             age: null,
-            positions: '',
+            positions: [''],
             availability: Availabilty.AVAILABLE
         } as ProfileValuesType),
 
@@ -21,5 +20,4 @@ export const useProfileStore = defineStore('profile', {
             this.availability = profile.availability
         }
     }
-    // other options...
 })

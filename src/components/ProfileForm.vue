@@ -8,7 +8,6 @@
             name="name"
             error-text-pattern=""
             error-text-required="Please type your name"
-            @valid="(validity) => valid(validity, 'name')"
         />
         <Input
             v-model:model-value="props.modelValue.age"
@@ -18,70 +17,76 @@
             error-text-pattern="The input must be a number"
             error-text-required="Please type your age"
         />
-        <Input
-            v-model:model-value="props.modelValue.positions"
-            id="positions"
-            name="positions"
-            v-autocomplete="positionsList()"
-            pattern=".*"
-            error-text-pattern=""
-            error-text-required="Please type your positions"
-        />
+        <div class="positions">
+            <label> Positions</label>
+            <Input
+                v-for="(position, i) in props.modelValue.positions"
+                :key="'position-' + position.id"
+                v-model="props.modelValue.positions[i].text"
+                :id="'position-' + position.id"
+                class="no-margin"
+                v-autocomplete="positionsList"
+                pattern=".*"
+                error-text-pattern=""
+                error-text-required="Please type your positions"
+            />
+            <button @click="addPosition" type="button" class="btn btn--secondary">Add position</button>
+
+        </div>
+
         <Radio
             v-model="props.modelValue.availability"
-            :options="availabilityOptions()"
+            :options="availabilityOptions"
         />
         <button class="profile-form__save" type="button" @click.prevent="submit">Save</button>
     </form>
 </template>
 
+
 <script lang="ts" setup>
 import Input from "@/components/Input.vue";
-import {defineExpose, ref, onMounted} from "vue";
+import {ref} from "vue";
 import {ProfileFormValuesType} from "@/helpers/types";
-import {positions} from "@/helpers/mappings";
+import {availabilityMapping, positions} from "@/helpers/mappings";
+import {getRandomId} from "@/helpers/utilityFunctions";
 import Radio from "@/components/Radio.vue";
-import {availabilityMapping} from "@/helpers/mappings";
-import {Availabilty} from "@/helpers/enums";
 
 const $root = ref(null);
-
 const $emit = defineEmits(['submit'])
-
 const props = defineProps<{
     modelValue: ProfileFormValuesType
 }>()
-
 const nameValid = ref<boolean>(false)
-
-function valid(validity: boolean, name: string) {
-    nameValid.value = validity
-}
+const randomId = getRandomId
+const positionsList = positions
+const availabilityOptions = availabilityMapping
 
 function submit() {
     let isValdid = true
-    $root.value?.querySelectorAll('input').forEach((input:HTMLInputElement) => {
+
+    $root.value?.querySelectorAll('input').forEach((input: HTMLInputElement) => {
         input.value = input.value.trim()
         input.dispatchEvent(new Event('input')) //Trigger validation error display
         if (!input.validity) isValdid = false
         if (input.required && input.value === '') isValdid = false
     })
+
     if (isValdid) $emit('submit')
 }
 
-function availabilityOptions(): Record<Availabilty, string> {
-    return availabilityMapping
-}
-
-function positionsList(): string[] {
-    return positions
+function addPosition(): void {
+    props.modelValue.positions.push({id: getRandomId(), text: ''})
 }
 
 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped lang="scss">
+
+.positions {
+    margin-bottom: 15px;
+}
 
 .profile-form {
     &__save {
