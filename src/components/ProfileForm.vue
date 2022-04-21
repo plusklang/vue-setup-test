@@ -8,6 +8,8 @@
             name="name"
             error-text-pattern=""
             error-text-required="Please type your name"
+            :required="true"
+
         />
         <Input
             v-model:model-value="props.modelValue.age"
@@ -16,6 +18,7 @@
             pattern="\d{0,3}"
             error-text-pattern="The input must be a number"
             error-text-required="Please type your age"
+            :required="true"
         />
         <div class="positions">
             <label> Positions</label>
@@ -29,6 +32,7 @@
                 pattern=".*"
                 error-text-pattern=""
                 error-text-required="Please type your positions"
+                :required="true"
             />
             <button @click="addPosition" type="button" class="btn btn--secondary">Add position</button>
 
@@ -51,7 +55,7 @@ import {availabilityMapping, positions} from "@/helpers/mappings";
 import {getRandomId} from "@/helpers/utilityFunctions";
 import Radio from "@/components/Radio.vue";
 
-const $root = ref(null);
+const $root = ref<HTMLFormElement | null>(null);
 const $emit = defineEmits(['submit'])
 const props = defineProps<{
     modelValue: ProfileFormValuesType
@@ -62,16 +66,10 @@ const positionsList = positions
 const availabilityOptions = availabilityMapping
 
 function submit() {
-    let isValdid = true
+    let isValid
+    isValid = $root.value?.checkValidity()
 
-    $root.value?.querySelectorAll('input').forEach((input: HTMLInputElement) => {
-        input.value = input.value.trim()
-        input.dispatchEvent(new Event('input')) //Trigger validation error display
-        if (!input.validity) isValdid = false
-        if (input.required && input.value === '') isValdid = false
-    })
-
-    if (isValdid) $emit('submit')
+    if (isValid) $emit('submit')
 }
 
 function addPosition(): void {

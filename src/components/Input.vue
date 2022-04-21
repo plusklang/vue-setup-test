@@ -6,9 +6,10 @@
                :id="props.id"
                @input="validate"
                @blur="validate"
+               @invalid="validate"
                :value="props.modelValue"
                :pattern="props.pattern"
-               required
+               :required="props.required"
         >
         <span class="input__error" v-if="errorText">{{ errorText }}</span>
     </div>
@@ -30,6 +31,7 @@ const props = defineProps<{
     pattern: string
     errorTextRequired: string
     errorTextPattern: string
+    required: boolean
 }>()
 
 const $emit = defineEmits(['enter', 'update:modelValue', 'valid'])
